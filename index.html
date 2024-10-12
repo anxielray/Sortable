@@ -20,19 +20,19 @@
       <option value="all">All</option>
     </select>
 
-    <table id="heroes-table">
+    <table>
       <thead>
         <tr>
-          <th>Icon</th>
-          <th>Name</th>
-          <th>Full Name</th>
-          <th>Powerstats</th>
-          <th>Race</th>
-          <th>Gender</th>
-          <th>Height</th>
-          <th>Weight</th>
-          <th>Place of Birth</th>
-          <th>Alignment</th>
+          <th onclick="sortTable('image')">Icon</th>
+          <th onclick="sortTable('name')">Name</th>
+          <th onclick="sortTable('fullName')">Full Name</th>
+          <th onclick="sortTable('powerstats')">Powerstats</th>
+          <th onclick="sortTable('race')">Race</th>
+          <th onclick="sortTable('gender')">Gender</th>
+          <th onclick="sortTable('height')">Height</th>
+          <th onclick="sortTable('weight')">Weight</th>
+          <th onclick="sortTable('placeOfBirth')">Place Of Birth</th>
+          <th onclick="sortTable('alignment')">Alignment</th>
         </tr>
       </thead>
       <tbody id="heroes-body"></tbody>
