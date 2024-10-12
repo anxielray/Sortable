@@ -99,13 +99,13 @@ const renderSearch = (filteredHeroes = heroes) => {
       hero.name
     }" style="width: 40px;"></td>
           <td>${hero.name}</td>
-          <td>${hero.biography["full-name"]}</td>
+          <td>${hero.biography.fullName}</td>
           <td>${JSON.stringify(hero.powerstats)}</td>
           <td>${hero.appearance.race}</td>
           <td>${hero.appearance.gender}</td>
           <td>${hero.appearance.height.join(", ")}</td>
           <td>${hero.appearance.weight.join(", ")}</td>
-          <td>${hero.biography["place-of-birth"]}</td>
+          <td>${hero.biography.placeOfBirth}</td>
           <td>${hero.biography.alignment}</td>
       `;
     tbody.appendChild(row);
