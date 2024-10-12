@@ -2,6 +2,8 @@ let heroes = [];
 let currentPage = 1;
 let pageSize = 20;
 let searchQuery = "";
+let sortColumn = "name";
+let sortDirection = "asc";
 
 const loadData = (data) => {
   heroes = data;
@@ -118,6 +120,68 @@ const renderSearch = (filteredHeroes = heroes) => {
     currentPage < Math.ceil(filteredHeroes.length / pageSize)
       ? "inline"
       : "none";
+};
+
+const sortTable = (column) => {
+  if (sortColumn === column) {
+    sortDirection = sortDirection === "asc" ? "desc" : "asc";
+  } else {
+    sortColumn = column;
+    sortDirection = "asc";
+  }
+
+  heroes.sort((a, b) => {
+    let aValue, bValue;
+
+    switch (column) {
+      case "name":
+        aValue = a.name;
+        bValue = b.name;
+        break;
+      case "fullName":
+        aValue = a.biography.fullName;
+        bValue = b.biography.fullName;
+        break;
+      case "powerstats":
+        aValue = Object.values(a.powerstats).reduce((acc, val) => acc + val, 0);
+        bValue = Object.values(b.powerstats).reduce((acc, val) => acc + val, 0);
+        break;
+      case "race":
+        aValue = a.appearance.race || "";
+        bValue = b.appearance.race || "";
+        break;
+      case "gender":
+        aValue = a.appearance.gender || "";
+        bValue = b.appearance.gender || "";
+        break;
+      case "height":
+        aValue = parseInt(a.appearance.height[0]) || Infinity;
+        bValue = parseInt(b.appearance.height[0]) || Infinity;
+        break;
+      case "weight":
+        aValue = parseInt(a.appearance.weight[0]) || Infinity;
+        bValue = parseInt(b.appearance.weight[0]) || Infinity;
+        break;
+      case "placeOfBirth":
+        aValue = a.biography.placeOfBirth || "";
+        bValue = b.biography.placeOfBirth || "";
+        break;
+      case "alignment":
+        aValue = a.biography.alignment || "";
+        bValue = b.biography.alignment || "";
+        break;
+      default:
+        aValue = "";
+        bValue = "";
+        break;
+    }
+
+    if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
+    if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  renderTable();
 };
 
 document.getElementById("search").addEventListener("input", handleSearch);
