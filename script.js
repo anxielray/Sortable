@@ -147,35 +147,34 @@ const sortTable = (column) => {
         bValue = Object.values(b.powerstats).reduce((acc, val) => acc + val, 0);
         break;
       case "race":
-        aValue = a.appearance.race || "";
-        bValue = b.appearance.race || "";
+        aValue = a.appearance.race;
+        bValue = b.appearance.race;
         break;
       case "gender":
-        aValue = a.appearance.gender || "";
-        bValue = b.appearance.gender || "";
+        aValue = a.appearance.gender;
+        bValue = b.appearance.gender;
         break;
       case "height":
-        aValue = parseInt(a.appearance.height[0]) || Infinity;
-        bValue = parseInt(b.appearance.height[0]) || Infinity;
+        aValue = parseInt(a.appearance.height[0]);
+        bValue = parseInt(b.appearance.height[0]);
         break;
       case "weight":
-        aValue = parseInt(a.appearance.weight[0]) || Infinity;
-        bValue = parseInt(b.appearance.weight[0]) || Infinity;
+        aValue = parseInt(a.appearance.weight[0]);
+        bValue = parseInt(b.appearance.weight[0]);
         break;
       case "placeOfBirth":
-        aValue = a.biography.placeOfBirth || "";
-        bValue = b.biography.placeOfBirth || "";
+        aValue = a.biography.placeOfBirth;
+        bValue = b.biography.placeOfBirth;
         break;
       case "alignment":
-        aValue = a.biography.alignment || "";
-        bValue = b.biography.alignment || "";
+        aValue = a.biography.alignment;
+        bValue = b.biography.alignment;
         break;
       default:
         aValue = "";
         bValue = "";
         break;
     }
-
     if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
     if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
     return 0;
