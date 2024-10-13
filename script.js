@@ -63,9 +63,27 @@ const prevPage = () => {
   }
 };
 
-const handleSearch = () => {
+const handleSearchName = () => {
   searchQuery = document.getElementById("search").value;
   const suggestions = include(searchQuery);
+  renderSearch(suggestions);
+};
+
+const handleSearchFullName = () => {
+  searchQuery = document.getElementById("search").value;
+  const suggestions = includeFullName(searchQuery);
+  renderSearch(suggestions);
+};
+
+const handleSearchPOB = () => {
+  searchQuery = document.getElementById("search").value;
+  const suggestions = includePOB(searchQuery);
+  renderSearch(suggestions);
+};
+
+const handleSearchAlignment = () => {
+  searchQuery = document.getElementById("search").value;
+  const suggestions = includeAlignment(searchQuery);
   renderSearch(suggestions);
 };
 
@@ -73,6 +91,60 @@ const include = (searchQuery) => {
   return heroes.filter((hero) =>
     hero.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+};
+
+const includeFullName = (searchQuery) => {
+  return heroes.filter((hero) =>
+    hero.biography.fullName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+};
+
+const includePOB = (searchQuery) => {
+  return heroes.filter((hero) =>
+    hero.biography.placeOfBirth
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
+};
+
+const includeAlignment = (searchQuery) => {
+  return heroes.filter((hero) =>
+    hero.biography.alignment.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+};
+
+const specialSearch = () => {
+  const searchField = document.getElementById("searchField").value;
+  searchQuery = document.getElementById("search").value;
+  let value;
+  switch (searchField) {
+    case "name":
+      handleSearchName();
+      break;
+    case "fullName":
+      handleSearchFullName();
+      break;
+    case "placeOfBirth":
+      handleSearchPOB();
+      break;
+    case "alignment":
+      handleSearchAlignment();
+      break;
+    default:
+      value = "";
+  }
+  return value.toLowerCase().includes(searchQuery.toLowerCase());
+};
+
+const handleNumericSearch = () => {
+  const minWeight = parseInt(document.getElementById("minWeight").value) || 0;
+  const maxWeight =
+    parseInt(document.getElementById("maxWeight").value) || Infinity;
+
+  heroes.filter((hero) => {
+    const weight = parseInt(hero.appearance.weight[0]) || 0;
+    return weight >= minWeight && weight <= maxWeight;
+  });
 };
 
 const renderSearch = (filteredHeroes = heroes) => {
@@ -183,7 +255,7 @@ const sortTable = (column) => {
   renderTable();
 };
 
-document.getElementById("search").addEventListener("input", handleSearch);
+document.getElementById("search").addEventListener("input", specialSearch);
 document.getElementById("pageSize").addEventListener("change", updatePageSize);
 document.getElementById("next").addEventListener("click", nextPage);
 document.getElementById("prev").addEventListener("click", prevPage);
